@@ -82,7 +82,7 @@ class Game():
 
     def check_right(self, row, column, player):
         count = 0
-        for column_index in range(column + 1):
+        for column_index in range(column + 1, 7):
             if self.board[row][column_index] == player:
                 count += 1
             else:
@@ -90,7 +90,71 @@ class Game():
         return count
 
     def four_diagonal_right(self, row, column, player):
-        return False
+        count = 1
+        count_right_diagonal_up = self.check_right_diagonal_up(row, column, player)
+        count_left_diagonal_down = self.check_left_diagonal_down(row, column, player)
+        return count + count_right_diagonal_up + count_left_diagonal_down >= 4
+
+    def check_right_diagonal_up(self, row, column, player):
+        count = 0
+        if column > 6 or row < 0:
+            return count
+        
+        pos_col = column + 1
+        for row_index in range(row - 1, -1, -1):            
+            if self.board[row_index][pos_col] == player:
+                count += 1
+                pos_col += 1
+            else:
+                break
+        return count
+
+    def check_left_diagonal_down(self, row, column, player):
+        count = 0
+        if column < 0 or row > 6:
+            return count
+
+        pos_col = column -1
+        for row_index in range(row + 1, 6):
+            if self.board[row_index][pos_col] == player:
+                count += 1
+                pos_col -= 1
+            else:
+                break
+        return count
 
     def four_diagonal_left(self, row, column, player):
-        return False
+        count = 1
+        count_left_up = self.check_diagonal_left_up(row, column, player)
+        count_right_down = self.check_diagonal_right_down(row, column, player)
+        return count + count_left_up + count_right_down >= 4
+
+    def check_diagonal_left_up(self, row, column, player):
+        count = 0
+        pos_col = column - 1
+
+        if column < 0 or row < 0:
+            return count
+
+        for row_index in range(row - 1, - 1, -1):
+            if self.board[row_index][pos_col] == player:
+                count += 1
+                pos_col -= 1
+            else:
+                break
+        return count
+
+    def check_diagonal_right_down(self, row, column, player):
+        count = 0
+        pos_col = column + 1
+
+        if row > 6 or column > 7:
+            return count
+
+        for row_index in range(row + 1, 6):
+            if self.board[row_index][pos_col] == player:
+                count += 1
+                pos_col += 1
+            else:
+                break
+        return count

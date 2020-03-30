@@ -93,3 +93,39 @@ class TestGame(unittest.TestCase):
         self.game.make_move(player0, 3)
         result = self.game.four_in_horizontal(5, 2, player0)
         self.assertTrue(result)
+
+    def test_check_right_diagonal_up(self):
+        player0 = 0
+        self.game.make_move(player0, 0)       
+        self.game.make_move(player0, 1)
+        self.game.make_move(player0, 1)
+        result = self.game.check_right_diagonal_up(5, 0, player0)
+        self.assertEqual(result, 1)
+
+    def test_check_left_diagonal_down(self):
+        player0 = 0
+        self.game.make_move(player0, 0)       
+        self.game.make_move(player0, 1)
+        self.game.make_move(player0, 1)
+        result = self.game.check_left_diagonal_down(4, 1, player0)
+        self.assertEqual(result, 1)
+
+    def test_check_diagonal_left_up(self):
+        player0 = 0
+        self.game.make_move(player0, 0)
+        self.game.make_move(player0, 0)
+        self.game.make_move(player0, 0)
+        self.game.make_move(player0, 1)
+        self.game.make_move(player0, 1)
+        result = self.game.check_diagonal_left_up(5, 1, player0)
+        self.assertEqual(result, 1)
+
+    def test_check_diagonal_right_down(self):
+        player0 = 0
+        self.game.make_move(player0, 0)
+        self.game.make_move(player0, 0)
+        self.game.make_move(player0, 0)
+        self.game.make_move(player0, 1)
+        self.game.make_move(player0, 1)
+        result = self.game.check_diagonal_right_down(4, 0, player0)
+        self.assertEqual(result, 1)
