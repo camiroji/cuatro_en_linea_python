@@ -20,10 +20,9 @@ class TestGame(unittest.TestCase):
 
     def test_move_in_empty_column(self):
         player = 1
-        column = 0
-        palyer_mark = self.game.tokens_mark[player]
+        column = 0        
         self.game.make_move(player, column)
-        self.assertEqual(self.game.board[5][0], palyer_mark)
+        self.assertEqual(self.game.board[5][0], player)
 
     def test_two_moves_in_same_column(self):
         player0 = 0
@@ -31,5 +30,66 @@ class TestGame(unittest.TestCase):
         column = 0
         self.game.make_move(player1, column)       
         self.game.make_move(player0, column)
-        self.assertEqual(self.game.board[5][0], 'R') # R is the board mark for player 1
-        self.assertEqual(self.game.board[4][0], 'B') # B es the board mark for the player 0
+        self.assertEqual(self.game.board[5][0], player1) 
+        self.assertEqual(self.game.board[4][0], player0) 
+
+    def test_check_up(self):
+        player0 = 0
+        player1 = 1
+        column = 0
+        self.game.make_move(player0, column)       
+        self.game.make_move(player0, column)
+        self.game.make_move(player1, column)
+        self.game.make_move(player0, column)
+        count_up = self.game.check_up(5, 0, player0)
+        self.assertEqual(count_up, 1)
+
+    def test_check_down(self):
+        player0 = 0
+        player1 = 1
+        column = 0
+        self.game.make_move(player0, column)       
+        self.game.make_move(player0, column)
+        self.game.make_move(player1, column)
+        self.game.make_move(player0, column)
+        count_down = self.game.check_down(4, 0, player0)
+        self.assertEqual(count_down, 1)
+
+    def test_four_in_vertical(self):
+        player0 = 0
+        column = 0
+        self.game.make_move(player0, column)       
+        self.game.make_move(player0, column)
+        self.game.make_move(player0, column)
+        self.game.make_move(player0, column)
+        result = self.game.four_in_vertical(4, column, player0)
+        self.assertTrue(result)
+
+    def test_check_left(self):
+        player0 = 0
+        player1 = 1
+        self.game.make_move(player0, 0)       
+        self.game.make_move(player0, 1)
+        self.game.make_move(player1, 2)
+        self.game.make_move(player0, 3)
+        result = self.game.check_left(5, 1, player0)
+        self.assertEqual(result, 1)
+
+    def test_check_right(self):
+        player0 = 0
+        player1 = 1
+        self.game.make_move(player0, 0)       
+        self.game.make_move(player0, 1)
+        self.game.make_move(player1, 2)
+        self.game.make_move(player0, 3)
+        result = self.game.check_right(5, 0, player0)
+        self.assertEqual(result, 1)
+
+    def test_check_four_horizontal(self):
+        player0 = 0
+        self.game.make_move(player0, 0)       
+        self.game.make_move(player0, 1)
+        self.game.make_move(player0, 2)
+        self.game.make_move(player0, 3)
+        result = self.game.four_in_horizontal(5, 2, player0)
+        self.assertTrue(result)
