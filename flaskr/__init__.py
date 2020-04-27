@@ -1,17 +1,19 @@
 import os
 from flask import Flask, request
+from flask_cors import CORS
 from flaskr.game.game import Game
 
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
+    CORS(app)
+    app.config['CORS_HEADERS'] = 'Content-Type'
+
     game = Game()
 
     @app.route('/game')
     def get_game():
-        if game.finish:
-            game = Game()
         return game.get_game_serialized()
 
     @app.route('/move', methods = ['POST'])
