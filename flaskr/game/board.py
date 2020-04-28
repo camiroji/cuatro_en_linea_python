@@ -139,7 +139,7 @@ class Board():
         count = 0
         pos_col = column + 1
 
-        if row > 6 or column > 7:
+        if row >= 6 or column >= 7:
             return count
 
         for row_index in range(row + 1, 6):

@@ -5,3 +5,4 @@ tests/__pycache__/__init__.cpython-38.pyc
 tests/__pycache__/test_game.cpython-38.pyc
 flaskr/game/__pycache__/board.cpython-38.pyc
 tests/__pycache__/test_board.cpython-38.pyc
+*.cpython*
