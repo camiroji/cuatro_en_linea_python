@@ -4,7 +4,7 @@ class Board():
         self.board = [ [None for _ in range(7)] for _ in range(6)]
 
     def __repr__(self):
-        return "\n|".join(["".join([f" {self.board[row][col]} |" for col in range(7)]) for row in range(6) ])
+        return "  0   1   2   3   4   5   6\n|" + "\n+---+---+---+---+---+---+---+\n|".join(["".join([f" {' ' if self.board[row][col] == None else self.board[row][col]} |" for col in range(7)]) for row in range(6) ]) + "\n+---+---+---+---+---+---+---+"
 
     def get_row(self, index):
         return self.board[index]
@@ -26,7 +26,7 @@ class Board():
         return row
 
     def get_last_row_empty(self, column):
-        for raw_index in range(5, 0, -1):
+        for raw_index in range(5, -1, -1):
             if self.board[raw_index][column] == None:
                 return raw_index
 

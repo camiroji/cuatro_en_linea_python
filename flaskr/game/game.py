@@ -1,9 +1,8 @@
-from .board import Board
+from flaskr.game.board import Board
 
 class Game():
     
     def __init__(self):
-
         self.board = Board()
         self.tokens_count = [21, 21]
         self.finish = False

@@ -1,16 +1,32 @@
 import os
-from flask import Flask, request
-from flask_cors import CORS
-from flaskr.game.game import Game
+from flask import Flask, request, make_response
+from flask_cors import CORS, cross_origin
+from .game.game import Game
 
+count_players = 0
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
     CORS(app)
-    app.config['CORS_HEADERS'] = 'Content-Type'
 
-    game = Game()
+    game = Game()   
+
+    @app.route('/player')
+    def get_player_id():
+        global count_players
+        if count_players <= 1:
+            response = {'player_id': count_players}    
+            count_players += 1
+            return response
+        else: 
+            return {'error': 'No players available'}    
+    
+    @app.route('/start')
+    def start_game():
+        global game
+        game = Game()
+        return game.get_game_serialized()
 
     @app.route('/game')
     def get_game():
